@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GT-RED1 — Studio Store</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Epilogue:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --r:#E8001D;
+  --r2:rgba(232,0,29,0.08);
+  --r3:rgba(232,0,29,0.22);
+
+  --ink:#0A0A0B;
+  --ink2:#111214;
+  --line:rgba(255,255,255,0.07);
+  --mute:#52555F;
+  --w:#EDEAE2;
+
+  --fd:'Bebas Neue',sans-serif;
+  --fb:'Epilogue',sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:var(--fb);
+  background:var(--ink);
+  color:var(--w);
+  overflow-x:hidden;
+  cursor:none;
+  min-height:100vh;
+}
+
+/* CURSOR */
+#cd,
+#cr{
+  position:fixed;
+  pointer-events:none;
+  z-index:9999;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+}
+
+#cd{
+  width:6px;
+  height:6px;
+  background:var(--r);
+  transition:transform .06s;
+}
+
+#cr{
+  width:28px;
+  height:28px;
+  border:1px solid rgba(232,0,29,0.5);
+  transition:
+    width .25s,
+    height .25s,
+    border-color .25s;
+  mix-blend-mode:difference;
+}
+
+/* GRAIN */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+
+  opacity:.028;
+  mix-blend-mode:overlay;
+}
+
+/* BACKGROUND ACCENTS */
+.bg-accent{
+  position:fixed;
+  pointer-events:none;
+  z-index:0;
+  border-radius:50%;
+  filter:blur(130px);
+}
+
+.bg-a1{
+  width:500px;
+  height:500px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(232,0,29,0.07) 0%,
+      transparent 70%
+    );
+
+  top:-180px;
+  right:-80px;
+
+  animation:ba1 20s ease-in-out infinite;
+}
+
+.bg-a2{
+  width:380px;
+  height:380px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,0.04) 0%,
+      transparent 70%
+    );
+
+  bottom:10%;
+  left:-80px;
+
+  animation:ba2 26s ease-in-out infinite;
+}
+
+@keyframes ba1{
+  0%,100%{
+    transform:translate(0,0);
+  }
+
+  50%{
+    transform:translate(-40px,60px);
+  }
+}
+
+@keyframes ba2{
+  0%,100%{
+    transform:translate(0,0);
+  }
+
+  50%{
+    transform:translate(50px,-40px);
+  }
+}
+
+.shell{
+  position:relative;
+  z-index:2;
+}
+
+/* NAV */
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:500;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  height:60px;
+  padding:0 48px;
+
+  background:rgba(10,10,11,0.88);
+
+  backdrop-filter:blur(18px);
+
+  border-bottom:1px solid var(--line);
+
+  transition:box-shadow .4s;
+}
+
+nav.down{
+  box-shadow:0 2px 40px rgba(0,0,0,.7);
+}
+
+.nav-logo{
+  font-family:var(--fd);
+  font-size:1.5rem;
+  letter-spacing:4px;
+  color:var(--w);
+  text-decoration:none;
+}
+
+.nav-logo b{
+  color:var(--r);
+}
+
+.nav-btn{
+  padding:8px 18px;
+
+  border:1px solid var(--r3);
+  border-radius:5px;
+
+  background:var(--r2);
+
+  color:var(--r);
+
+  font-family:var(--fb);
+  font-size:.72rem;
+  font-weight:700;
+
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+
+  cursor:none;
+
+  transition:all .2s;
+}
+
+.nav-btn:hover{
+  background:var(--r);
+  color:#fff;
+}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+
+  padding:
+    0
+    48px
+    80px;
+
+  position:relative;
+  overflow:hidden;
+}
+
+.hero-top-bar{
+  position:absolute;
+  top:80px;
+  left:48px;
+  right:48px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.hero-eyebrow{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  font-size:.68rem;
+  font-weight:700;
+
+  letter-spacing:4px;
+  text-transform:uppercase;
+
+  color:var(--r);
+}
+
+.hero-eyebrow::before{
+  content:'';
+
+  width:24px;
+  height:1px;
+
+  background:var(--r);
+}
+
+.hero-date{
+  font-size:.68rem;
+  font-weight:500;
+
+  letter-spacing:2px;
+  text-transform:uppercase;
+
+  color:var(--mute);
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:60px;
+  align-items:flex-end;
+}
+
+.hero-headline{
+  font-family:var(--fd);
+
+  font-size:clamp(5rem,13vw,11rem);
+
+  line-height:.88;
+  letter-spacing:2px;
+
+  color:var(--w);
+
+  user-select:none;
+}
+
+.hero-headline .accent{
+  color:var(--r);
+  display:block;
+}
+
+.hero-headline .stroke{
+  display:block;
+
+  color:transparent;
+
+  -webkit-text-stroke:1.5px var(--w);
+}
+
+.hero-right-col{
+  display:flex;
+  flex-direction:column;
+  gap:36px;
+
+  min-width:280px;
+  padding-bottom:8px;
+}
+
+.hero-desc{
+  padding-left:18px;
+
+  border-left:2px solid var(--r3);
+
+  color:var(--mute);
+
+  font-size:.9rem;
+  line-height:1.85;
+}
+
+.hero-desc strong{
+  color:var(--w);
+}
+
+.hero-status-box{
+  background:var(--ink2);
+
+  border:1px solid var(--line);
+  border-radius:8px;
+
+  padding:20px 22px;
+}
+
+.hsb-label{
+  margin-bottom:12px;
+
+  font-size:.6rem;
+  font-weight:700;
+
+  letter-spacing:3px;
+  text-transform:uppercase;
+
+  color:var(--mute);
+}
+
+.hsb-items{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.hsb-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.hsb-item-label{
+  font-size:.82rem;
+}
+
+.hsb-pill{
+  padding:3px 9px;
+
+  border-radius:3px;
+
+  font-size:.58rem;
+  font-weight:700;
+
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.hsb-pill.soon{
+  background:rgba(82,85,95,.2);
+  color:var(--mute);
+  border:1px solid rgba(82,85,95,.3);
+}
+
+.hsb-pill.dev{
+  background:var(--r2);
+  color:var(--r);
+  border:1px solid var(--r3);
+}
+
+/* SCROLL */
+.hero-scroll-hint{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+
+  transform:translateX(-100%);
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+}
+
+.hero-scroll-hint span{
+  font-size:.6rem;
+  font-weight:700;
+
+  letter-spacing:4px;
+  text-transform:uppercase;
+
+  color:var(--mute);
+}
+
+.scroll-line{
+  position:relative;
+  overflow:hidden;
+
+  width:1px;
+  height:44px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      var(--mute),
+      transparent
+    );
+}
+
+.scroll-line::after{
+  content:'';
+
+  position:absolute;
+  top:-100%;
+  left:0;
+
+  width:100%;
+  height:100%;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent,
+      var(--r)
+    );
+
+  animation:drop 1.8s ease-in-out infinite;
+}
+
+@keyframes drop{
+  0%{
+    top:-100%;
+  }
+
+  100%{
+    top:200%;
+  }
+}
+
+/* TICKER */
+.ticker-bar{
+  overflow:hidden;
+
+  padding:11px 0;
+
+  background:var(--ink2);
+
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+
+.ticker-track{
+  display:flex;
+  gap:60px;
+
+  width:max-content;
+
+  white-space:nowrap;
+
+  animation:tick 30s linear infinite;
+}
+
+.ticker-track:hover{
+  animation-play-state:paused;
+}
+
+@keyframes tick{
+  from{
+    transform:translateX(0);
+  }
+
+  to{
+    transform:translateX(-50%);
+  }
+}
+
+.t-item{
+  display:flex;
+  align-items:center;
+  gap:24px;
+
+  font-family:var(--fd);
+  font-size:.75rem;
+
+  letter-spacing:4px;
+
+  color:var(--mute);
+}
+
+.t-dot{
+  width:4px;
+  height:4px;
+
+  border-radius:50%;
+
+  background:var(--r);
+
+  flex-shrink:0;
+}
+
+/* MODAL */
+.modal-bg{
+  position:fixed;
+  inset:0;
+  z-index:800;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(0,0,0,.75);
+
+  backdrop-filter:blur(12px);
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:opacity .3s;
+}
+
+.modal-bg.open{
+  opacity:1;
+  pointer-events:all;
+}
+
+.modal{
+  position:relative;
+  overflow:hidden;
+
+  width:90%;
+  max-width:420px;
+
+  padding:48px 44px;
+
+  background:var(--ink2);
+
+  border:1px solid var(--line);
+  border-radius:16px;
+
+  text-align:center;
+
+  transform:translateY(20px) scale(.97);
+
+  transition:
+    transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+
+.modal-bg.open .modal{
+  transform:translateY(0) scale(1);
+}
+
+.modal::before{
+  content:'';
+
+  position:absolute;
+  top:-80px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:200px;
+  height:200px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(232,0,29,.12),
+      transparent 70%
+    );
+}
+
+.modal-close{
+  position:absolute;
+  top:14px;
+  right:14px;
+
+  width:30px;
+  height:30px;
+
+  border:1px solid var(--line);
+  border-radius:5px;
+
+  background:rgba(255,255,255,.03);
+
+  color:var(--mute);
+
+  cursor:none;
+
+  transition:all .2s;
+}
+
+.modal-close:hover{
+  border-color:var(--r3);
+  color:var(--r);
+}
+
+.modal-icon{
+  display:block;
+
+  margin-bottom:18px;
+
+  font-size:3rem;
+
+  animation:mfloat 3s ease-in-out infinite;
+}
+
+@keyframes mfloat{
+  0%,100%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(-8px);
+  }
+}
+
+.modal-label{
+  display:inline-block;
+
+  margin-bottom:16px;
+
+  padding:4px 12px;
+
+  border:1px solid var(--r3);
+  border-radius:3px;
+
+  background:var(--r2);
+
+  color:var(--r);
+
+  font-size:.6rem;
+  font-weight:700;
+
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+
+.modal-title{
+  margin-bottom:10px;
+
+  font-family:var(--fd);
+  font-size:1.6rem;
+
+  letter-spacing:2px;
+}
+
+.modal-body{
+  margin-bottom:28px;
+
+  color:var(--mute);
+
+  font-size:.84rem;
+  line-height:1.75;
+}
+
+.modal-row{
+  display:flex;
+  gap:8px;
+}
+
+.modal-in{
+  flex:1;
+
+  padding:11px 14px;
+
+  background:#18191D;
+
+  border:1px solid var(--line);
+  border-radius:6px;
+
+  color:var(--w);
+
+  outline:none;
+
+  font-family:var(--fb);
+
+  transition:border-color .2s;
+}
+
+.modal-in:focus{
+  border-color:var(--r3);
+}
+
+.modal-go{
+  padding:11px 18px;
+
+  border:none;
+  border-radius:6px;
+
+  background:var(--r);
+
+  color:#fff;
+
+  font-size:.74rem;
+  font-weight:700;
+
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+
+  cursor:none;
+
+  transition:all .2s;
+}
+
+.modal-go:hover{
+  background:#c8001a;
+}
+
+.modal-done{
+  display:none;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+
+  margin-top:12px;
+
+  color:#00C864;
+
+  font-size:.82rem;
+  font-weight:600;
+}
+
+.modal-done.show{
+  display:flex;
+}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+
+  nav{
+    padding:0 24px;
+  }
+
+  .hero{
+    padding:0 24px 64px;
+  }
+
+  .hero-top-bar{
+    left:24px;
+    right:24px;
+  }
+
+  .hero-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero-right-col{
+    display:none;
+  }
+
+  .hero-headline{
+    font-size:clamp(4rem,16vw,7rem);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- CURSOR -->
+<div id="cd"></div>
+<div id="cr"></div>
+
+<!-- BG -->
+<div class="bg-accent bg-a1"></div>
+<div class="bg-accent bg-a2"></div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal">
+  <div class="modal">
+
+    <button class="modal-close" id="mclose">
+      ✕
+    </button>
+
+    <span class="modal-icon" id="micon">
+      🚀
+    </span>
+
+    <span class="modal-label">
+      Coming Soon
+    </span>
+
+    <h2 class="modal-title" id="mtitle">
+      Early Access
+    </h2>
+
+    <p class="modal-body" id="mbody">
+      Be the first to know when our first apps drop.
+      Leave your email and you're on the list.
+    </p>
+
+    <div class="modal-row">
+      <input
+        class="modal-in"
+        type="email"
+        placeholder="your@email.com"
+        id="memail"
+      />
+
+      <button class="modal-go" id="mgo">
+        Notify
+      </button>
+    </div>
+
+    <div class="modal-done" id="mdone">
+      ✓ You're on the list.
+    </div>
+
+  </div>
+</div>
+
+<div class="shell">
+
+<!-- NAV -->
+<nav id="nav">
+
+  <a class="nav-logo" href="#">
+    <b>GT</b>-RED1
+  </a>
+
+  <button
+    class="nav-btn"
+    onclick="openModal()"
+  >
+    Get Notified
+  </button>
+
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+  <div class="hero-top-bar">
+
+    <div class="hero-eyebrow">
+      Official Studio Store
+    </div>
+
+    <div class="hero-date">
+      Est. 2024 — Building in public
+    </div>
+
+  </div>
+
+  <div class="hero-grid">
+
+    <div class="hero-left">
+
+      <h1 class="hero-headline">
+        <span class="stroke">GAMES.</span>
+        <span class="stroke">FINANCE.</span>
+        <span class="accent">COMING.</span>
+      </h1>
+
+    </div>
+
+    <div class="hero-right-col">
+
+      <p class="hero-desc">
+        We're <strong>GT-RED1 Studio</strong> —
+        a new independent studio building games and
+        financial tools from the ground up.
+        <br><br>
+        Nothing's live yet.
+        <strong>We're building in public.</strong>
+      </p>
+
+      <div class="hero-status-box">
+
+        <div class="hsb-label">
+          Studio Status
+        </div>
+
+        <div class="hsb-items">
+
+          <div class="hsb-item">
+            <span class="hsb-item-label">
+              Gold Price
+            </span>
+
+            <span class="hsb-pill dev">
+              In Dev
+            </span>
+          </div>
+
+          <div class="hsb-item">
+            <span class="hsb-item-label">
+              Play Store
+            </span>
+
+            <span class="hsb-pill soon">
+              Soon
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="hero-scroll-hint">
+
+    <span>Scroll</span>
+
+    <div class="scroll-line"></div>
+
+  </div>
+
+</section>
+
+<!-- TICKER -->
+<div class="ticker-bar">
+
+  <div class="ticker-track">
+
+    <div class="t-item">
+      <span class="t-dot"></span>
+      Building in Public
+    </div>
+
+    <div class="t-item">
+      <span class="t-dot"></span>
+      No Fake Screenshots
+    </div>
+
+    <div class="t-item">
+      <span class="t-dot"></span>
+      Games Coming Soon
+    </div>
+
+    <div class="t-item">
+      <span class="t-dot"></span>
+      Finance Tools Coming Soon
+    </div>
+
+    <div class="t-item">
+      <span class="t-dot"></span>
+      Zero Pay-to-Win Policy
+    </div>
+
+    <div class="t-item">
+      <span class="t-dot"></span>
+      Join the Waitlist
+    </div>
+
+    <div class="t-item">
+      <span class="t-dot"></span>
+      GT-RED1 Studio 2024
+    </div>
+
+    <div class="t-item">
+      <span class="t-dot"></span>
+      Building in Public
+    </div>
+
+    <div class="t-item">
+      <span class="t-dot"></span>
+      No Fake Screenshots
+    </div>
+
+    <div class="t-item">
+      <span class="t-dot"></span>
+      Games Coming Soon
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+<script>
+/* CURSOR */
+const cd=document.getElementById('cd');
+const cr=document.getElementById('cr');
+
+let mx=0;
+let my=0;
+
+let rx=0;
+let ry=0;
+
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;
+  my=e.clientY;
+
+  cd.style.left=mx+'px';
+  cd.style.top=my+'px';
+});
+
+(function loop(){
+
+  rx+=(mx-rx)*0.13;
+  ry+=(my-ry)*0.13;
+
+  cr.style.left=rx+'px';
+  cr.style.top=ry+'px';
+
+  requestAnimationFrame(loop);
+
+})();
+
+document.addEventListener('mouseleave',()=>{
+  cd.style.opacity='0';
+  cr.style.opacity='0';
+});
+
+document.addEventListener('mouseenter',()=>{
+  cd.style.opacity='1';
+  cr.style.opacity='1';
+});
+
+/* HOVER */
+document.querySelectorAll('a,button').forEach(el=>{
+
+  el.addEventListener('mouseenter',()=>{
+
+    cr.style.width='48px';
+    cr.style.height='48px';
+
+    cr.style.borderColor='rgba(232,0,29,0.8)';
+
+  });
+
+  el.addEventListener('mouseleave',()=>{
+
+    cr.style.width='28px';
+    cr.style.height='28px';
+
+    cr.style.borderColor='rgba(232,0,29,0.5)';
+
+  });
+
+});
+
+/* NAV */
+window.addEventListener(
+  'scroll',
+  ()=>document
+    .getElementById('nav')
+    .classList.toggle('down',scrollY>30),
+  {passive:true}
+);
+
+/* MODAL */
+function openModal(){
+
+  document
+    .getElementById('modal')
+    .classList.add('open');
+
+  document
+    .getElementById('memail')
+    .value='';
+
+  document
+    .getElementById('mdone')
+    .classList.remove('show');
+}
+
+document
+  .getElementById('mclose')
+  .addEventListener('click',()=>{
+
+    document
+      .getElementById('modal')
+      .classList.remove('open');
+
+});
+
+document
+  .getElementById('modal')
+  .addEventListener('click',e=>{
+
+    if(e.target===document.getElementById('modal')){
+
+      document
+        .getElementById('modal')
+        .classList.remove('open');
+
+    }
+
+});
+
+document.addEventListener('keydown',e=>{
+
+  if(e.key==='Escape'){
+
+    document
+      .getElementById('modal')
+      .classList.remove('open');
+
+  }
+
+});
+
+/* EMAIL */
+document
+  .getElementById('mgo')
+  .addEventListener('click',()=>{
+
+    const v=document
+      .getElementById('memail')
+      .value
+      .trim();
+
+    if(!v || !v.includes('@')){
+
+      document
+        .getElementById('memail')
+        .style.borderColor='var(--r)';
+
+      return;
+    }
+
+    document
+      .getElementById('memail')
+      .style.borderColor='';
+
+    document
+      .getElementById('memail')
+      .value='';
+
+    document
+      .getElementById('mdone')
+      .classList.add('show');
+
+});
+
+/* PREVENT # */
+document
+  .querySelectorAll('a[href="#"]')
+  .forEach(a=>{
+
+    a.addEventListener('click',e=>e.preventDefault());
+
+});
+</script>
+
+</body>
+</html>
